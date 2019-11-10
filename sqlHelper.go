@@ -33,7 +33,7 @@ func loadApis()  {
 		// Use the string value
 		apis[string(col2)] = col1
 	}
-	fmt.Println(apis)
+	fmt.Println("Apis cargadas!")
 }
 func newReport(id_antena int, filepath string,t time.Time){
 	stmtIns, err := cur.Prepare("INSERT INTO Reportes VALUES( ?, ? ,?,?)") // ? = placeholder

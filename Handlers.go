@@ -10,7 +10,7 @@ import (
 	"time"
 )
 const (
-	filepath = "/opt/lampp/htdocs/Dashboard/assets/csv/"
+	filepath = "/opt/lampp/htdocs/Dashboard/assets/data/"
 )
 
 func validateApi(w http.ResponseWriter, r *http.Request) bool{
@@ -43,7 +43,7 @@ func uploadDataHandler(w http.ResponseWriter, r *http.Request){
 	ts, _ := strconv.ParseInt(r.Form.Get("ts"), 10, 64)
 	timestamp := time.Unix(ts, 0)
 	filename := timestamp.Format("02-01-2006-15-04-05") // Formato para el nombre del archivo
-	filename = filename+"_"+strconv.Itoa(id)+".csv" // Nombre final
+	filename = filename+"_"+strconv.Itoa(id)+".json" // Nombre final
 	fmt.Println(filename)
 
 	io.Copy(&Buf, file)
