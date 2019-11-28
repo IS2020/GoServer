@@ -3,19 +3,22 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
+
 var apis = make(map[string]int)
 var cur *sql.DB
-func startSql(){
-	db, err := sql.Open("mysql", "root@/GesEventos")
+
+func startSql() {
+	db, err := sql.Open("mysql", "jack:password@/GesEventos")
 	if err != nil {
 		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
 	}
 	cur = db
 }
-func loadApis()  {
+func loadApis() {
 	var col1 int
 	var col2 []byte
 	rows, err := cur.Query("SELECT id_antena,api_key FROM Antenas")
@@ -35,13 +38,13 @@ func loadApis()  {
 	}
 	fmt.Println("Apis cargadas!")
 }
-func newReport(id_antena int, filepath string,t time.Time){
+func newReport(id_antena int, filepath string, t time.Time) {
 	stmtIns, err := cur.Prepare("INSERT INTO Reportes VALUES( ?, ? ,?,?)") // ? = placeholder
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
 	defer stmtIns.Close()
-	_, err = stmtIns.Exec(nil,id_antena,filepath,t) // Insert tuples (i, i^2)
+	_, err = stmtIns.Exec(nil, id_antena, filepath, t) // Insert tuples (i, i^2)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
